@@ -8,6 +8,9 @@
   }
   
   .dropdown.open .dropdown-menu {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 10px;
+
   }
   
