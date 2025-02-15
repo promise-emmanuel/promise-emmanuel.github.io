@@ -7,7 +7,7 @@ import { ContactService } from '../contacts/contact.service';
   standalone: false,
   
   templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.css'
+  styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent implements OnInit {
   selectedContact: Contact | null = null;

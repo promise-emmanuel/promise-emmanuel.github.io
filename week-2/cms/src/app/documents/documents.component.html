@@ -1,9 +1,15 @@
+<!-- <div class="container">
+  <h2>Documents</h2>
+  <router-outlet></router-outlet>
+</div> -->
+
+
 <div class="row">
     <div class="col-md-5">
-      <app-document-list (selectedDocumentEvent)="selectedDocument = $event"></app-document-list>
+      <app-document-list></app-document-list>
     </div>
     <div class="col-md-4">
-      <app-document-detail *ngIf="selectedDocument" [document]="selectedDocument"></app-document-detail>
+      <router-outlet></router-outlet>
+      <!-- <app-document-detail *ngIf="selectedDocument" [document]="selectedDocument"></app-document-detail> -->
     </div>
   </div>
-  

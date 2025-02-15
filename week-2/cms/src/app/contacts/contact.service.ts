@@ -9,6 +9,8 @@ export class ContactService {
   contactSelectedEvent = new EventEmitter<Contact>(); 
   contacts: Contact[] = []
 
+  contactChangedEvent = new EventEmitter<Contact[]>();
+
   
   constructor() {
     // add code later
@@ -28,4 +30,10 @@ export class ContactService {
 
     return null
    }
+
+   deleteContact(contactId: string): void {
+    this.contacts = this.contacts.filter(contact => contact.id !== contactId);
+    this.contactChangedEvent.emit(this.contacts.slice());
+  }
+  
 }

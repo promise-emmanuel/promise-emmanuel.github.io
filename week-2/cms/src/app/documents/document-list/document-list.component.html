@@ -2,15 +2,16 @@
   <div class="panel-heading">
     <div class="row pad-left-right">
       <span class="pull-left title">Documents</span>
-      <a class="btn btn-success pull-right">Add Document</a>
+      <a class="btn btn-success pull-right" [routerLink]="['new']">Add Document</a>
     </div>
   </div>
   <div class="panel-body">
     <div class="center-panel" *ngFor="let doc of documents">
-      <app-document-item
-       [document]="doc"
-       (click)="onSelectedDocument(doc)">     
-      </app-document-item>
+      <a [routerLink]="[doc.id]">
+        <app-document-item
+          [document]="doc">
+        </app-document-item>
+      </a>
     </div>
   </div>
 

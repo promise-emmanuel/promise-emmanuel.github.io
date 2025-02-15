@@ -1,2 +1,8 @@
-<img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-thumbnail" style="width: 50px; height: 50px;">
-          {{ contact.name }}
+<a [routerLink]="[contact.id]" routerLinkActive="active" class="list-group-item list-group-item-action d-flex align-items-center">
+    <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-thumbnail" style="width: 50px; height: 50px; margin-right: 10px;">
+    {{ contact.name }}
+  </a>
+  
+
+<!-- <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-thumbnail" style="width: 50px; height: 50px;">
+          {{ contact.name }} -->

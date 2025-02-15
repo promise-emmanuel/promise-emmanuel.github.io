@@ -4,6 +4,7 @@
     <app-contact-list></app-contact-list>
     
     <h2>Contact Details</h2>
-    <p> {{ selectedContact?.name }} </p>
-    <app-contact-detail *ngIf="selectedContact" [contact]="selectedContact"></app-contact-detail>
+    <router-outlet></router-outlet>
+    <!-- <p> {{ selectedContact?.name }} </p> -->
+    <!-- <app-contact-detail *ngIf="selectedContact" [contact]="selectedContact"></app-contact-detail> -->
 </div>

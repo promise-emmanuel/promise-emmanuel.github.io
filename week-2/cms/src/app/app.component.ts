@@ -19,10 +19,8 @@ export class AppComponent {
     null
   );
 
-  selectedFeature = 'documents';
-  switchView(selectedFeature: string) {
-    this.selectedFeature = selectedFeature;
-  }
-
-
+  // selectedFeature = 'documents';
+  // switchView(selectedFeature: string) {
+    // this.selectedFeature = selectedFeature;
+  // }
 }
