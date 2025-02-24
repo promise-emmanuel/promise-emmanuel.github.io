@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Document } from "../document.model";
 import { DocumentService } from '../document.service';
 
@@ -9,20 +10,30 @@ import { DocumentService } from '../document.service';
   templateUrl: './document-list.component.html',
   styleUrls: ['./document-list.component.css']
 })
-export class DocumentListComponent {
+export class DocumentListComponent implements OnInit, OnDestroy {
   documents: Document[] = [];
+  private subscription!: Subscription;
     
   constructor(private documentService: DocumentService) {}
 
-  // ngOnInit(): void {
-    // this.documents = this.documentService.getDocuments();
-  // }
-
   ngOnInit(): void {
-    this.documents = [...new Set(this.documentService.getDocuments())]; 
-    this.documentService.documentSelectedEvent.subscribe((documents: Document[]) => {
-      this.documents = documents
-    });
+    this.documents = this.documentService.getDocuments();
+
+    // subsribe to the subject
+    this.subscription = this.documentService.documentListChangedEvent.subscribe(
+      (documents: Document[]) => {
+        this.documents = documents;
+      });    
+
+    // old code
+    // this.documents = [...new Set(this.documentService.getDocuments())]; 
+    // this.documentService.documentSelectedEvent.subscribe((documents: Document[]) => {
+      // this.documents = documents
+    // });
   }
   
+  ngOnDestroy(): void {
+    // unsubscribe to prevent memory leaks
+    this.subscription.unsubscribe();
+  }
 }
