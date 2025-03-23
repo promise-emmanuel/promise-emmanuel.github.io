@@ -31,4 +31,16 @@
     color: darkgrey;
     margin-left: 3rem;
   }
-  
+
+/* Highlight invalid Name and Email fields with red border */
+input.ng-invalid.ng-untouched {
+  border: 2px solid red;
+}
+
+/* Style the error message at the bottom */
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

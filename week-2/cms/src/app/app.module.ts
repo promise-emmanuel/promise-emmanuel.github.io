@@ -20,6 +20,11 @@ import { ContactService } from './contacts/contact.service';
 import { DocumentService } from './documents/document.service';
 import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
+// import { DndModule } from 'ng2-dnd';
+// import { DndModule } from 'ngx-drag-drop';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +48,9 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    DragDropModule,
+    // DndModule,
   ],
   providers: [
     provideClientHydration(withEventReplay()),
