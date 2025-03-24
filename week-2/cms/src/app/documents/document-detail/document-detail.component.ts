@@ -29,7 +29,9 @@ export class DocumentDetailComponent implements OnInit {
       this.route.params.subscribe((params) => {
         const id = params['id'];
         if (id) {
-          this.document = this.documentService.getDocument(id);
+          this.documentService.getDocument(id).subscribe((document: Document) => {
+            this.document = document;
+          });
         } else {
           this.document = null;
         }
@@ -53,8 +55,17 @@ export class DocumentDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.documentService.deleteDocument(this.document);
-    this.router.navigate(['/documents']);
+    if (this.document?.id) { // Ensure the document and its id exist
+        this.documentService.deleteDocument(this.document.id); // Pass the id instead of the entire document
+        this.router.navigate(['/documents']);
+    } else {
+        console.warn('Cannot delete: Document or Document ID is missing');
+    }
   }
+
+  // onDelete() {
+    // this.documentService.deleteDocument(this.document);
+    // this.router.navigate(['/documents']);
+  // }
 
 }

@@ -10,7 +10,7 @@ import { ContactService } from '../contact.service';
   templateUrl: './contact-detail.component.html',
   styleUrls: ['./contact-detail.component.css']
 })
-export class ContactDetailComponent {
+export class ContactDetailComponent implements OnInit {
   @Input() contact: Contact | null = null;
 
   constructor(
@@ -22,7 +22,9 @@ export class ContactDetailComponent {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       const id = params['id']; // Get the contact ID from the route
-      this.contact = this.contactService.getContact(id); // Fetch contact details
+      this.contactService.getContact(id).subscribe((contact: Contact) => {
+        this.contact = contact; // Assign the contact to the component
+      }); // Fetch contact details
     });
   }
 

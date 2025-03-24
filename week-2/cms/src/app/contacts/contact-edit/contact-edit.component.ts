@@ -27,24 +27,45 @@ export class ContactEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      if (!this.id) {
-        this.editMode = false;
-        return;
-      }
-      this.originalContact = this.contactService.getContact(this.id);
-      if (!this.originalContact) {
-        return;
-      }
-      this.editMode = true;
-      // Clone the original contact
-      this.contact = JSON.parse(JSON.stringify(this.originalContact));
-      // Clone group if it exists
-      if (this.originalContact.group) {
-        this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group));
-      }
+        this.id = params['id'];
+        if (!this.id) {
+            this.editMode = false;
+            return;
+        }
+        this.contactService.getContact(this.id).subscribe((contact: Contact) => {
+                if (!contact) {
+                    return;
+                }
+                this.originalContact = contact;
+                this.editMode = true;
+
+                // Clone the original contact
+                this.contact = JSON.parse(JSON.stringify(this.originalContact));
+
+                // Clone group if it exists
+                if (this.originalContact.group) {
+                    this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group));
+                }
+            },
+            (error) => {
+                console.error('Error fetching contact:', error);
+            }
+        );
     });
-  }
+}   
+  
+      // if (!this.originalContact) {
+        // return;
+      // }
+      // this.editMode = true;
+      // Clone the original contact
+      // this.contact = JSON.parse(JSON.stringify(this.originalContact));
+      // Clone group if it exists
+      // if (this.originalContact.group) {
+        // this.groupContacts = JSON.parse(JSON.stringify(this.originalContact.group));
+      // }
+    // });
+  // }
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
@@ -112,7 +133,7 @@ export class ContactEditComponent implements OnInit {
 
 
 
-
+// first approach
 
 // import { Component, OnInit } from '@angular/core';
 // import { ActivatedRoute, Params, Router } from '@angular/router';

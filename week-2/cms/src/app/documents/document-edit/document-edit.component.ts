@@ -29,12 +29,27 @@ export class DocumentEditComponent implements OnInit {
         this.editMode = false;
         return;
       }
-      this.originalDocument = this.documentService.getDocument(this.id);
-      if (!this.originalDocument) {
-        return;
-      }
-      this.editMode = true;
-      this.document = JSON.parse(JSON.stringify(this.originalDocument));
+
+      this.documentService.getDocument(this.id).subscribe(
+        (document: Document) => {
+          if (!document) {
+            return;
+          }
+          this.originalDocument = document;
+          this.editMode = true;
+          this.document = JSON.parse(JSON.stringify(this.originalDocument));
+        },
+        (error) => {
+          console.error('Error fetching document:', error);
+        }
+      );
+
+      // this.originalDocument = this.documentService.getDocument(this.id);
+      // if (!this.originalDocument) {
+        // return;
+      // }
+      // this.editMode = true;
+      // this.document = JSON.parse(JSON.stringify(this.originalDocument));
     });
   }
 

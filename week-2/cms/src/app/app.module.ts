@@ -24,6 +24,8 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
 // import { DndModule } from 'ngx-drag-drop';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MessageListComponent,
     DropdownDirective,
     DocumentEditComponent,
-    ContactEditComponent
+    ContactEditComponent,
+    ContactsFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -55,8 +58,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   providers: [
     provideClientHydration(withEventReplay()),
     ContactService,
-    DocumentService
-
+    DocumentService,
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]
 })
