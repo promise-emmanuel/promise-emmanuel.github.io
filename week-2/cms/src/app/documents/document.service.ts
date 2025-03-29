@@ -14,6 +14,11 @@ export class DocumentService {
   private firebaseUrl = 'https://promise-cms-default-rtdb.firebaseio.com/documents.json';
 
   constructor(private http: HttpClient) {}
+  getAllDocumentIds(): Promise<string[]> {
+    return this.http.get<{ [key: string]: any }>(this.firebaseUrl)
+      .pipe(map(data => Object.keys(data || {})))
+      .toPromise();
+  }
 
   getDocuments(): Observable<Document[]> {
     return this.http.get<{ [key: string]: Document }>(this.firebaseUrl).pipe(

@@ -5,13 +5,21 @@ var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 
+app.use(cors());
+
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
+var documentRoutes = require('./server/routes/documents');
+var messageRoutes = require('./server/routes/messages');
+var contactRoutes = require('./server/routes/contacts');
+
 
 var app = express(); // create an instance of express
+app.use(cors()); // Tell express to use the cors package
 
 // Tell express to use the following parsers for POST data
 app.use(bodyParser.json());
@@ -38,12 +46,17 @@ app.use((req, res, next) => {
 
 // Tell express to use the specified director as the
 // root directory for your web site
-app.use(express.static(path.join(__dirname, 'dist/cms')));
+
+app.use(express.static(path.join(__dirname, 'dist/cms/browser')));
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
+app.use('/api/documents', documentRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/contacts', contactRoutes);
+
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

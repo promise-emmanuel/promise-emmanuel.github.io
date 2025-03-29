@@ -15,7 +15,11 @@ export class ContactService {
   private firebaseUrl = 'https://promise-cms-default-rtdb.firebaseio.com/contacts.json';
 
   constructor(private http: HttpClient) {}
-
+  getAllContactIds(): Promise<string[]> {
+    return this.http.get<{ [key: string]: any }>(this.firebaseUrl)
+      .pipe(map(data => Object.keys(data || {})))
+      .toPromise();
+  }
   getContacts(): Observable<Contact[]> {
     return this.http.get<{ [key: string]: Contact }>(this.firebaseUrl).pipe(
       map((contactsData) => contactsData ? Object.values(contactsData) : []),
