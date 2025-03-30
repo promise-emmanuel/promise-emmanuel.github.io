@@ -10,16 +10,15 @@ var cors = require('cors');
 // import the routing file to handle the default (index) route
 var index = require('./server/routes/app');
 
-app.use(cors());
 
 // ... ADD CODE TO IMPORT YOUR ROUTING FILES HERE ... 
-var documentRoutes = require('./server/routes/documents');
-var messageRoutes = require('./server/routes/messages');
-var contactRoutes = require('./server/routes/contacts');
+const documentRoutes = require('./server/routes/documents');
+const messageRoutes = require('./server/routes/messages');
+const contactRoutes = require('./server/routes/contacts');
 
 
 var app = express(); // create an instance of express
-app.use(cors()); // Tell express to use the cors package
+// app.use(cors()); // Tell express to use the cors package
 
 // Tell express to use the following parsers for POST data
 app.use(bodyParser.json());
@@ -53,14 +52,14 @@ app.use(express.static(path.join(__dirname, 'dist/cms/browser')));
 app.use('/', index);
 
 // ... ADD YOUR CODE TO MAP YOUR URL'S TO ROUTING FILES HERE ...
-app.use('/api/documents', documentRoutes);
-app.use('/api/messages', messageRoutes);
-app.use('/api/contacts', contactRoutes);
+app.use('/documents', documentRoutes);
+app.use('/messages', messageRoutes);
+app.use('/contacts', contactRoutes);
 
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/cms/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/cms/browser', 'index.csr.html'));
 });
 
 // Define the port address and tell express to use this port
