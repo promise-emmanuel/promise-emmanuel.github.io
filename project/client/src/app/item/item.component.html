@@ -1,0 +1,30 @@
+
+<div class="container">
+    <h2>Item Management</h2>
+  
+    <!-- Form to add new item -->
+    <div>
+      <input [(ngModel)]="newItem.name" placeholder="Name" />
+      <input [(ngModel)]="newItem.description" placeholder="Description" />
+      <button (click)="addItem()">Add Item</button>
+    </div>
+  
+    <!-- List all items -->
+    <ul>
+      <li *ngFor="let item of items">
+        <strong>{{ item.name }}</strong> - {{ item.description }}
+        <button (click)="startEdit(item)">Edit</button>
+        <button (click)="deleteItem(item._id ?? '')">Delete</button>
+      </li>
+    </ul>
+  
+    <!-- Edit section (shown if an item is being edited) -->
+    <div *ngIf="editItem">
+      <h3>Edit Item</h3>
+      <input [(ngModel)]="editItem.name" placeholder="Name" />
+      <input [(ngModel)]="editItem.description" placeholder="Description" />
+      <button (click)="updateItem()">Update</button>
+      <button (click)="editItem = null">Cancel</button>
+    </div>
+  </div>
+  
